@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: cards_development
+  username:
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  database: cards_test
+  username:
+  host: localhost
