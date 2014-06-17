@@ -18,5 +18,5 @@ production:
   encoding: utf8
   database: cards
   pool: 5
-  username: electrodynamicsru
-  password: 8Ghu4FB4wKsJFfP2
+  username: user
+  password: ks86ybdl!

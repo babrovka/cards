@@ -1,22 +1,7 @@
-div.jumbotron
-  h5 Существующие параметры
-  table.table
-    thead
-      tr
-        th Название 
-        th Значения
-        th
-    tbody
-      - @variants.each do |variant|
-        tr
-          td = variant.title
-          td = variant.values.map(&:title).join(', ')
-          td = link_to "Удалить", variant, :method => :delete, :confirm => 'Вы уверены?'
-  
 .row
   .col-md-6
     div.jumbotron
-      h5 Создать параметр
+      h3 Создать параметр
       .row
         .col-md-8
           = nested_form_for @variant do |f|
@@ -30,4 +15,29 @@ div.jumbotron
                 = f.link_to_add "Добавить значение", :values
             br
             = f.submit "Создать", :class => "btn btn-primary"
+
+div.jumbotron
+  h3 Существующие параметры
+  table.table
+    thead
+      tr
+        th Название 
+        th Значения
+        th
+    tbody
+      - @variants.each do |variant|
+        tr
+          td = variant.title
+          td = variant.values.map(&:title).join(', ')
+          td = link_to "Удалить", variant, :method => :delete, :confirm => 'Вы уверены?'
+          
+div.jumbotron
+  h3 Существующие параметры
+  table.table
+    thead
+      tr
+        th Название 
+        th Параметр
+        th Значение
+    tbody
   
