@@ -18,7 +18,7 @@ gem 'chosen-rails'
 gem "squeel"
 gem 'paperclip'
 gem "nested_form"
-
+gem 'activerecord-postgres-hstore'
 
 
 group :assets do

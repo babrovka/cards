@@ -6,6 +6,7 @@ class VariantsController < ApplicationController
     @variants = Variant.all
     @variant = Variant.new
     @variant.values.build
+    @cards = Card.all
   end
   
   def create 
