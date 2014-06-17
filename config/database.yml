@@ -11,3 +11,12 @@ test:
   database: cards_test
   username:
   host: localhost
+
+production:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: cards
+  pool: 5
+  username: electrodynamicsru
+  password: 8Ghu4FB4wKsJFfP2
