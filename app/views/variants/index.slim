@@ -1,2 +1,21 @@
 div.jumbotron
-  h5 Создать варианты
+  h5 Существующие параметры
+  table.table
+    thead
+      tr
+        th Название 
+        th Значения
+    tbody
+      - @variants.each do |variant|
+        tr
+          td = variant.title
+          td = variant.values.join(' ')
+  
+  
+div.jumbotron
+  h5 Создать параметр
+  = form_for @variant do |f|
+    = f.text_field :title, class: 'form-control', :placeholder => 'Название свойства'
+    br
+    = f.submit "Создать", :class => "btn btn-primary"
+    
