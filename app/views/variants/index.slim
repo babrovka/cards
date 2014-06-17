@@ -5,17 +5,29 @@ div.jumbotron
       tr
         th Название 
         th Значения
+        th
     tbody
       - @variants.each do |variant|
         tr
           td = variant.title
-          td = variant.values.join(' ')
+          td = variant.values.map(&:title).join(', ')
+          td = link_to "Удалить", variant, :method => :delete, :confirm => 'Вы уверены?'
   
+.row
+  .col-md-6
+    div.jumbotron
+      h5 Создать параметр
+      .row
+        .col-md-8
+          = nested_form_for @variant do |f|
+            = f.text_field :title, class: 'form-control', :placeholder => 'Название параметра'
+            br
+            .row
+              .col-md-6
+                = f.fields_for :values do |v|
+                  = v.text_field :title, class: 'form-control', :placeholder => 'Значение'
+                  = v.link_to_remove "Удалить значение"
+                = f.link_to_add "Добавить значение", :values
+            br
+            = f.submit "Создать", :class => "btn btn-primary"
   
-div.jumbotron
-  h5 Создать параметр
-  = form_for @variant do |f|
-    = f.text_field :title, class: 'form-control', :placeholder => 'Название свойства'
-    br
-    = f.submit "Создать", :class => "btn btn-primary"
-    

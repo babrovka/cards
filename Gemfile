@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'chosen-rails'
 gem "squeel"
 gem 'paperclip'
+gem "nested_form"
 
 
 
