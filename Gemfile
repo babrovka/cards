@@ -19,6 +19,7 @@ gem "squeel"
 gem 'paperclip'
 gem "nested_form"
 gem 'activerecord-postgres-hstore'
+gem 'devise'
 
 
 group :assets do

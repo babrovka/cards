@@ -1,6 +1,7 @@
 # coding: utf-8
 
 class VariantsController < ApplicationController
+  before_filter :authenticate_user!
   
   def index
     @variants = Variant.all

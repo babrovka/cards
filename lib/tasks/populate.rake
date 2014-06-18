@@ -39,6 +39,12 @@ namespace :create do
     puts "Cards created!"
   end
   
+  task :users => :environment do
+    User.create!(:email => 'babrovka@gmail.com', :password => 'babrovka', :password_confirmation => 'babrovka')
+    puts "Users created!"
+  end
+  
+  
 
   
 end
