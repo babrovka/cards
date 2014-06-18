@@ -3,14 +3,14 @@
     h1 Выберите карточку
 br
 br
+.row
 - @cards.each do |card|
-  .row
-    .col-md-6.col-md-offset-3
-      div.jumbotron
-        - card.properties.each do |k, v|
-          ul.list-group
-            li.list-group-item
-              span.badge #{v}
-              #{k}
-        = link_to 'Выбрать', select_card_path(card), :class => 'btn btn-success'
+  .col-md-6
+    div.jumbotron
+      - card.properties.each do |k, v|
+        ul.list-group
+          li.list-group-item
+            span.badge #{v}
+            #{k}
+      = link_to 'Выбрать', select_card_path(card), :class => 'btn btn-success'
             
