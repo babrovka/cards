@@ -10,5 +10,12 @@ class CardsController < ApplicationController
   def conjoint
     @cards = Card.order('RANDOM()').limit(2)
   end
+  
+  def select
+    @card = Card.find(params[:id])
+    @card.rating += 1
+    @card.save!
+    redirect_to conjoint_path, :notice => "Выбор сделан"
+  end
 
 end
