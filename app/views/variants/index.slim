@@ -43,5 +43,5 @@ div.jumbotron
       - @cards.each do |card|
         tr
           td = card.rating
-          td = card.properties
+          td = card.properties.map { |k,v | k.to_s + ': ' + v.to_s}.join(', ')
   
