@@ -164,7 +164,8 @@ CREATE TABLE variants (
     id integer NOT NULL,
     title character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    combinations character varying(255)
 );
 
 
@@ -292,3 +293,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140617123259');
 INSERT INTO schema_migrations (version) VALUES ('20140617123411');
 
 INSERT INTO schema_migrations (version) VALUES ('20140618101232');
+
+INSERT INTO schema_migrations (version) VALUES ('20140618112226');

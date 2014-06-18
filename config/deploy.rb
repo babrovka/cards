@@ -46,7 +46,7 @@ namespace(:thin) do
   end
 
   task :restart do
-    run %Q{cd #{latest_release} && bundle exec thin restart -C /etc/thin/#{application}.yml}
+    run %Q{cd #{latest_release} && bundle exec thin stop -C /etc/thin/#{application}.yml && bundle exec thin start -C /etc/thin/#{application}.yml}
   end
 end
 
