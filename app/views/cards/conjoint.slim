@@ -1,0 +1,16 @@
+.row
+  .col-md-6.col-md-offset-4
+    h1 Выберите карточку
+br
+br
+- @cards.each do |card|
+  .row
+    .col-md-6.col-md-offset-3
+      div.jumbotron
+        - card.properties.each do |k, v|
+          ul.list-group
+            li.list-group-item
+              span.badge #{v}
+              #{k}
+        = link_to 'Выбрать', '', :class => 'btn btn-success'
+            

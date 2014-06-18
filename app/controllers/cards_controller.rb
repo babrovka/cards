@@ -6,5 +6,9 @@ class CardsController < ApplicationController
     Card.destroy_all
     redirect_to variants_path, :notice => "Все карточки удалены"
   end
+  
+  def conjoint
+    @cards = Card.order('RANDOM()').limit(2)
+  end
 
 end
