@@ -9,33 +9,32 @@ class Variant < ActiveRecord::Base
   serialize :combinations
   
   def recreate_cards
-    
     Card.destroy_all
-    
-    Variant.all.each do |variant|
-      combi = []
-      variant.values.each do |value|
-        pair = variant.title + ": " + value.title 
-        combi << pair
+    unless Variant.count == 0 
+      Variant.all.each do |variant|
+        combi = []
+        variant.values.each do |value|
+          pair = variant.title + ": " + value.title 
+          combi << pair
+        end
+        variant.combinations = combi
+        variant.save!
       end
-      variant.combinations = combi
-      variant.save!
-    end
     
-    vs = Variant.pluck(:combinations)
+      vs = Variant.pluck(:combinations)
     
-    combinations = vs.slice!(0).product(*vs)
+      combinations = vs.slice!(0).product(*vs)
     
-    combinations.each do |combination|
-      c = Card.new
+      combinations.each do |combination|
+        c = Card.new
       
-      combination.each do |pair|
-        key = pair.split(':').first
-        value = pair.split(':').last
-        c.properties[key] = value
+        combination.each do |pair|
+          key = pair.split(':').first
+          value = pair.split(':').last
+          c.properties[key] = value
+        end
+        c.save!
       end
-      c.save!
-
     end
     
 
