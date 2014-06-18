@@ -40,8 +40,9 @@ namespace :create do
   end
   
   task :users => :environment do
-    User.create!(:email => 'babrovka@gmail.com', :password => 'babrovka', :password_confirmation => 'babrovka')
-    User.create!(:email => 'salkutsan@kafedrapik.ru', :password => 'salkutsan', :password_confirmation => 'salkutsan')
+    User.destroy_all
+    User.create(:email => 'babrovka@gmail.com', :password => 'babrovka', :password_confirmation => 'babrovka')
+    User.create(:email => 'salkutsan@kafedrapik.ru', :password => 'salkutsan', :password_confirmation => 'salkutsan')
     puts "Users created!"
   end
   
