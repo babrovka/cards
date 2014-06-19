@@ -5,12 +5,12 @@ br
 br
 .row
 - @cards.each do |card|
-  .col-md-6
+  .col-md-4.col-md-offset-1
     div.jumbotron
       - card.properties.each do |k, v|
         ul.list-group
           li.list-group-item
-            span.badge #{v}
-            #{k}
+            span #{k}: 
+            span.bold #{v}
       = link_to 'Выбрать', select_card_path(card), :class => 'btn btn-success'
             
