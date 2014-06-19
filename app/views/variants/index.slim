@@ -16,6 +16,20 @@
             br
             = f.submit "Создать", :class => "btn btn-primary"
 
+  .col-md-6
+    div.jumbotron
+      h3 Вопрос
+      .row
+        .col-md-8
+          - if Question.any?
+            h4 = Question.first.try(:text)
+            = link_to "Удалить", question_path(Question.first), :method => :delete, :confirm => 'Вы уверены?' 
+          - else
+            = form_for @question do |f|
+              = f.text_field :text, class: 'form-control', :placeholder => 'Вопрос'
+              br
+              = f.submit "Создать", :class => "btn btn-primary"
+
 div.jumbotron
   h3 Существующие параметры
   table.table
