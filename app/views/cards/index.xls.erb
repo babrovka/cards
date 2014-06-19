@@ -1,0 +1,33 @@
+<table>
+  <tr>
+    <th>id</th>
+    <th>rating</th>
+    <% Variant.pluck(:combinations).each do |combnination| %>
+    <% combnination.each do |pair| %>
+    <th><%= pair %></th>
+    <% end %>
+    <% end %>
+    
+  </tr>
+
+<% @cards.each do |card| %>
+  <tr>
+    <td><%= card.id %></td>
+    <td><%= card.rating %></td>
+    <% Variant.pluck(:combinations).each do |combnination| %>
+    <% combnination.each do |pair| %>
+    <td>
+    <% key = pair.split(':').first %>
+    <% value = pair.split(':').last %>
+    <% c = card.properties %>
+    <% if c[key] == value %>
+    1
+    <% else %>
+    0
+    <% end%>
+    </td>
+    <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>

@@ -2,6 +2,13 @@
 
 class CardsController < ApplicationController
   
+  def index
+    @cards = Card.order(:rating)
+    respond_to do |format|
+      format.xls # { send_data @products.to_csv(col_sep: "\t") }
+    end
+  end
+  
   def destroy_all
     Card.destroy_all
     redirect_to variants_path, :notice => "Все карточки удалены"

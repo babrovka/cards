@@ -33,15 +33,18 @@ div.jumbotron
           
 div.jumbotron
   h3 Карточки 
-  span #{link_to 'Удалить все карточки', delete_cards_path}
+  span #{link_to 'Удалить все карточки', delete_cards_path, :class => "btn btn-primary"} 
+  span #{link_to 'Скачать таблицу с карточками', cards_path(format: "xls"), :class => "btn btn-primary"}
   table.table
     thead
       tr
+        th id
         th Рейтинг
         th Параметры со значениями
     tbody
       - @cards.each do |card|
         tr
+          td = card.id
           td = card.rating
           td = card.properties.map { |k,v | k.to_s + ': ' + v.to_s}.join(', ')
   

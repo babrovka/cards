@@ -14,7 +14,7 @@ class Variant < ActiveRecord::Base
       Variant.all.each do |variant|
         combi = []
         variant.values.each do |value|
-          pair = variant.title + ": " + value.title 
+          pair = variant.title + ":" + value.title 
           combi << pair
         end
         variant.combinations = combi
