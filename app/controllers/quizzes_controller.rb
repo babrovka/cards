@@ -36,10 +36,12 @@ class QuizzesController < ApplicationController
   end
   
   def home
-    @quiz = Quiz.last
-    @question = @quiz.question
-    @cards = @quiz.cards.order('RANDOM()').limit(2)
-    render 'show'
+    if Quiz.any?
+      @quiz = Quiz.last
+      @question = @quiz.question
+      @cards = @quiz.cards.order('RANDOM()').limit(2)
+      render 'show'
+    end
   end
 
 end

@@ -54,7 +54,7 @@ namespace :create do
     end
     Variant.all.each do |variant|
       variant.quiz_id = quiz.id
-      card.save!
+      variant.save!
     end
   end
   
