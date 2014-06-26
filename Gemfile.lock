@@ -97,6 +97,8 @@ GEM
       i18n (~> 0.5)
     formtastic (2.2.1)
       actionpack (>= 3.0)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
     fssm (0.2.10)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
@@ -234,6 +236,7 @@ DEPENDENCIES
   devise
   execjs
   faker
+  friendly_id
   jquery-rails (~> 2.3.0)
   nested_form
   paperclip

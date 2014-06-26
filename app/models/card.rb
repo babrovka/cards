@@ -1,6 +1,7 @@
 class Card < ActiveRecord::Base
-  attr_accessible :properties, :rating
+  attr_accessible :properties, :rating, :quiz_id
   serialize :properties, ActiveRecord::Coders::Hstore
+  belongs_to :quiz
   
   def self.to_csv(options,cards)
     CSV.generate(options) do |csv|

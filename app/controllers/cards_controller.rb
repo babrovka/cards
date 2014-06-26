@@ -3,15 +3,19 @@
 class CardsController < ApplicationController
   
   def index
-    @cards = Card.order(:rating)
+    @quiz = Quiz.find(params[:id])
+    @cards = Card.where(:quiz_id => @quiz.id).order('rating DESC')
+    @variants = @quiz.variants
+    
     respond_to do |format|
       format.xls # { send_data @products.to_csv(col_sep: "\t") }
     end
   end
   
   def destroy_all
-    Card.destroy_all
-    redirect_to variants_path, :notice => "Все карточки удалены"
+    cards = Card.where(:quiz_id => params[:id])
+    cards.destroy_all
+    redirect_to :back, :notice => "Все карточки удалены"
   end
   
   def conjoint
@@ -22,7 +26,7 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
     @card.rating += 1
     @card.save!
-    redirect_to conjoint_path, :notice => "Выбор сделан"
+    redirect_to :back, :notice => "Выбор сделан"
   end
 
 end

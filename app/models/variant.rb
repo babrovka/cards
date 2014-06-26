@@ -1,7 +1,8 @@
 # coding: utf-8
 
 class Variant < ActiveRecord::Base
-  attr_accessible :title, :values_attributes, :combinations
+  attr_accessible :title, :values_attributes, :combinations, :quiz_id
+  belongs_to :quiz
   has_many :values, dependent: :destroy
   accepts_nested_attributes_for :values, allow_destroy: true
   after_create :recreate_cards
@@ -9,9 +10,12 @@ class Variant < ActiveRecord::Base
   serialize :combinations
   
   def recreate_cards
-    Card.destroy_all
-    unless Variant.count == 0 
-      Variant.all.each do |variant|
+    quiz_id = self.quiz_id
+    cards = Card.where(:quiz_id => quiz_id)
+    cards.destroy_all
+    variants = Variant.where(:quiz_id => quiz_id)
+    unless variants.count == 0 
+      variants.each do |variant|
         combi = []
         variant.values.each do |value|
           pair = variant.title + ":" + value.title 
@@ -21,7 +25,7 @@ class Variant < ActiveRecord::Base
         variant.save!
       end
     
-      vs = Variant.pluck(:combinations)
+      vs = variants.pluck(:combinations)
     
       combinations = vs.slice!(0).product(*vs)
     
@@ -33,6 +37,7 @@ class Variant < ActiveRecord::Base
           value = pair.split(':').last
           c.properties[key] = value
         end
+        c.quiz_id = quiz_id
         c.save!
       end
     end

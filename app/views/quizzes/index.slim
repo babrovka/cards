@@ -18,9 +18,11 @@
             th ID 
             th Название
             th
+            th
         tbody
           - @quizzes.each do |quiz|
             tr
               td = quiz.id
               td = quiz.title
+              td = link_to "Редактировать", edit_quiz_path(quiz)
               td = link_to "Удалить", quiz, :method => :delete, :confirm => 'Вы уверены?'

@@ -52,7 +52,8 @@ CREATE TABLE cards (
     rating integer DEFAULT 0,
     properties hstore,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    quiz_id integer
 );
 
 
@@ -76,6 +77,38 @@ ALTER SEQUENCE cards_id_seq OWNED BY cards.id;
 
 
 --
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE friendly_id_slugs (
+    id integer NOT NULL,
+    slug character varying(255) NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(40),
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE friendly_id_slugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
+
+
+--
 -- Name: questions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -83,7 +116,8 @@ CREATE TABLE questions (
     id integer NOT NULL,
     text character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    quiz_id integer
 );
 
 
@@ -114,7 +148,8 @@ CREATE TABLE quizzes (
     id integer NOT NULL,
     title character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    slug character varying(255)
 );
 
 
@@ -262,6 +297,13 @@ ALTER TABLE ONLY cards ALTER COLUMN id SET DEFAULT nextval('cards_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY questions ALTER COLUMN id SET DEFAULT nextval('questions_id_seq'::regclass);
 
 
@@ -299,6 +341,14 @@ ALTER TABLE ONLY variants ALTER COLUMN id SET DEFAULT nextval('variants_id_seq':
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
 
 
 --
@@ -349,6 +399,34 @@ CREATE INDEX cards_properties ON cards USING gin (properties);
 
 
 --
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING btree (sluggable_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
+
+
+--
+-- Name: index_quizzes_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_quizzes_on_slug ON quizzes USING btree (slug);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -394,3 +472,11 @@ INSERT INTO schema_migrations (version) VALUES ('20140619113820');
 INSERT INTO schema_migrations (version) VALUES ('20140626070926');
 
 INSERT INTO schema_migrations (version) VALUES ('20140626070956');
+
+INSERT INTO schema_migrations (version) VALUES ('20140626080851');
+
+INSERT INTO schema_migrations (version) VALUES ('20140626080908');
+
+INSERT INTO schema_migrations (version) VALUES ('20140626085614');
+
+INSERT INTO schema_migrations (version) VALUES ('20140626085642');

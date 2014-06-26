@@ -1,0 +1,65 @@
+.row
+  .col-md-6
+    div.jumbotron
+      h3 Создать параметр
+      .row
+        .col-md-8
+          = nested_form_for @variant do |f|
+            = f.text_field :title, class: 'form-control', :placeholder => 'Название параметра'
+            = f.hidden_field :quiz_id
+            br
+            .row
+              .col-md-6
+                = f.fields_for :values do |v|
+                  = v.text_field :title, class: 'form-control', :placeholder => 'Значение'
+                  = v.link_to_remove "Удалить значение"
+                = f.link_to_add "Добавить значение", :values
+            br
+            = f.submit "Создать", :class => "btn btn-primary"
+
+  .col-md-6
+    div.jumbotron
+      h3 Вопрос
+      .row
+        .col-md-8
+          - if @question
+            h4 = @question.try(:text)
+            = link_to "Удалить", question_path(Question.first), :method => :delete, :confirm => 'Вы уверены?' 
+          - else
+            = form_for @new_question do |f|
+              = f.text_field :text, class: 'form-control', :placeholder => 'Вопрос'
+              = f.hidden_field :quiz_id
+              br
+              = f.submit "Создать", :class => "btn btn-primary"
+
+div.jumbotron
+  h3 Существующие параметры
+  table.table
+    thead
+      tr
+        th Название 
+        th Значения
+        th
+    tbody
+      - @variants.each do |variant|
+        tr
+          td = variant.title
+          td = variant.values.map(&:title).join(', ')
+          td = link_to "Удалить", variant, :method => :delete, :confirm => 'Вы уверены?'
+          
+div.jumbotron
+  h3 Карточки 
+  span #{link_to 'Удалить все карточки', delete_cards_path(:id => @quiz.id), :class => "btn btn-primary"} 
+  span #{link_to 'Скачать таблицу с карточками', cards_path(:id => @quiz.id, format: "xls"), :class => "btn btn-primary"}
+  table.table
+    thead
+      tr
+        th id
+        th Рейтинг
+        th Параметры со значениями
+    tbody
+      - @cards.each do |card|
+        tr
+          td = card.id
+          td = card.rating
+          td = card.properties.map { |k,v | k.to_s + ': ' + v.to_s}.join(', ')
