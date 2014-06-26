@@ -1,7 +1,7 @@
 # coding: utf-8
 
 class QuizzesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show, :home]
   
   def index 
     @quizzes = Quiz.all
@@ -33,6 +33,13 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id])
     @question = @quiz.question
     @cards = @quiz.cards.order('RANDOM()').limit(2)
+  end
+  
+  def home
+    @quiz = Quiz.last
+    @question = @quiz.question
+    @cards = @quiz.cards.order('RANDOM()').limit(2)
+    render 'show'
   end
 
 end
