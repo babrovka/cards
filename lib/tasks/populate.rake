@@ -46,8 +46,17 @@ namespace :create do
     puts "Users created!"
   end
   
-  
-
+  task :quiz => :environment do
+    quiz = Quiz.create(:title => 'Кафедра')
+    Card.all.each do |card|
+      card.quiz_id = quiz.id
+      card.save!
+    end
+    Variant.all.each do |variant|
+      variant.quiz_id = quiz.id
+      card.save!
+    end
+  end
   
 end
 
