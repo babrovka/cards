@@ -1,0 +1,26 @@
+.row
+  .col-md-10.col-md-offset-1
+    div.jumbotron
+      h3 Создать опрос
+      = form_for @quiz do |f|
+        .row
+          .col-md-8
+            = f.text_field :title, class: 'form-control', :placeholder => 'Название опроса'
+            br
+            = f.submit "Создать", :class => "btn btn-primary"
+ 
+  .col-md-10.col-md-offset-1
+    div.jumbotron
+      h3 Опросы
+      table.table
+        thead
+          tr
+            th ID 
+            th Название
+            th
+        tbody
+          - @quizzes.each do |quiz|
+            tr
+              td = quiz.id
+              td = quiz.title
+              td = link_to "Удалить", quiz, :method => :delete, :confirm => 'Вы уверены?'

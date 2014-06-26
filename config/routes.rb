@@ -1,5 +1,6 @@
 Cards::Application.routes.draw do
   devise_for :users, :skip => :registrations
+  resources :quizzes
   
   resources :cards, :only => [:index]
   resources :variants, :only => [:index, :create, :destroy]
