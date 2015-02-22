@@ -20,6 +20,7 @@ gem "nested_form"
 gem 'activerecord-postgres-hstore'
 gem 'devise'
 gem 'friendly_id'
+gem 'test-unit'
 
 
 group :assets do

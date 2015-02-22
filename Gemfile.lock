@@ -147,6 +147,7 @@ GEM
       activerecord (~> 3.0)
     polyglot (0.3.5)
     populator (1.0.0)
+    power_assert (0.2.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -201,6 +202,8 @@ GEM
       activesupport (~> 3.0)
       polyamorous (~> 0.5.0)
     temple (0.6.7)
+    test-unit (3.0.8)
+      power_assert
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -249,6 +252,7 @@ DEPENDENCIES
   simple_form
   slim
   squeel
+  test-unit
   therubyracer
   uglifier (>= 1.0.3)
   unicorn
