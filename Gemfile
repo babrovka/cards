@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '2.1.5'
 gem 'rails', '3.2.17'
 gem 'pg'
 gem "jquery-rails", "~> 2.3.0"
